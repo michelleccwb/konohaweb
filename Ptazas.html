@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="author" content="Méndez Franco Gabriela Maribel">
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <title>Productos</title>
+  <link rel="icon" type="image/x-icon" href="../Images/Sharingan.png">
+  <link rel="stylesheet" type="text/css" href="../CSS/mis-estilos.css">
+  <link rel="stylesheet" type="text/css" href="../CSS/productos.css">
+</head>
+<body>
+<header>
+  <!--Menú-->
+  <a href="../Index.html"><img src="../Images/logo.png" alt="Logo Konoha"></a>
+  <nav>
+    <a href="Productos.html" class="Under">Productos</a>
+    <a href="Misión.html">Misión</a>
+    <a href="Visión.html">Visión</a>
+    <a href="Contacto.html">Contacto</a>  
+  </nav>
+</header>
+<div class="container col-12 col-md-10 col-lg-8">
+<div class="carrusel">
+  <div class="Anuncios">
+    <!-- Anuncio 1 -->
+    <a href="jshkveinte.html">
+    <img src="../Images/JSHK20.png" class="anuncio" alt="Jibaku Shounen Hanako-Kun #20">
+    </a>
+    <!-- Anuncio 2 -->
+    <a href="haikyudos.html">
+    <img src="../Images/Haikyuu2.png" class="anuncio" alt="Haikyu!! (3 en 1) #2">
+    </a>
+    <!-- Anuncio 3 -->
+    <a href="ranmauno.html">
+    <img src="../Images/Ranma1.png" class="anuncio" alt="Ranma 1">
+    </a>
+  </div>
+  <button class="prev" onclick="cambiar(-1)">❮</button>
+  <button class="next" onclick="cambiar(1)">❯</button>
+</div>
+</div>
+<script>
+let indice = 0;
+mostraranuncio(indice);
+
+function cambiar(n){
+  mostraranuncio(indice += n);
+}
+
+function mostraranuncio(n){
+  const imagenes = document.getElementsByClassName("anuncio");
+  const textos   = document.getElementsByClassName("text");
+
+  if(n >= imagenes.length){ indice = 0; }
+  if(n < 0){ indice = imagenes.length - 1; }
+
+  for(let i = 0; i < imagenes.length; i++){
+    imagenes[i].style.display = "none";
+  }
+  for(let j = 0; j < textos.length; j++){
+    textos[j].style.display = "none";
+  }
+
+  imagenes[indice].style.display = "block";
+  textos[indice].style.display   = "flex"; 
+}
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+  const buscador = document.getElementById("buscador");
+  const productos = document.querySelectorAll(".card");
+
+  buscador.addEventListener("keyup", function(){
+  let texto = buscador.value.toLowerCase();
+
+  productos.forEach(producto => {
+  let nombre = producto.textContent.toLowerCase();
+
+  if(nombre.includes(texto)){
+ producto.style.display = "";
+  } else {
+    producto.style.display = "none";
+  }
+        });
+    });
+});
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+
+  document.getElementById("ordenar").addEventListener("change", function(){
+    let opcion = this.value;
+    let contenedor = document.getElementById("gridProductos");
+    let productos = Array.from(contenedor.querySelectorAll(".card"));
+
+    productos.sort((a, b) => {
+      let nombreA = a.querySelector(".card-title").textContent.toLowerCase();
+      let nombreB = b.querySelector(".card-title").textContent.toLowerCase();
+
+      let precioA = parseFloat(a.getAttribute("data-precio")) || 0;
+      let precioB = parseFloat(b.getAttribute("data-precio")) || 0;
+
+      if(opcion === "nombreAsc"){
+        return nombreA.localeCompare(nombreB);
+      }
+      if(opcion === "nombreDesc"){
+        return nombreB.localeCompare(nombreA);
+      }
+      if(opcion === "precioAsc"){
+        return precioA - precioB;
+      }
+      if(opcion === "precioDesc"){
+        return precioB - precioA;
+      }
+    });
+    productos.forEach(p => contenedor.appendChild(p));
+  });
+});
+</script>
+<div>
+  <section class="catalogo" id="catalogo">
+  <div class="barra_catalogo">
+    <div class="barra">
+      <div class="izquierda">
+        <strong><h2 style="color:white;">Catálogo</h2></strong>
+      </div>
+       <div class="bsc">
+            <input type="text" id="buscador" placeholder="Buscar en toda la tienda...">
+        </div>
+        <div class="derecha">
+            <label style="color: white; font-weight: bold;">Ordenar por</label>
+            <select id="ordenar">
+                <option value="nombreAsc">Nombre ascendente</option>
+                <option value="nombreDesc">Nombre descendente</option>
+                <option value="precioAsc">Precio ascendente</option>
+                <option value="precioDesc">Precio descendente</option>
+            </select>
+        </div>
+    </div>
+  </section>
+</div>
+<div class="container mt-4">
+  <div class="row">
+    <aside class="col-12 col-md-4 col-lg-3 mb-4">
+      <div class="ctg">
+        <h3 class="mb-3">Categoría</h3>
+        <ul class="categorias">
+          <li><a href="Pmangas.html">Mangas</a></li>
+          <li><a href="Ppeluches.html">Peluches</a></li>
+          <li><a href="Ptazas.html">Tazas</a></li>
+          <li><a href="Pnovelas.html">Novelas</a></li>
+        </ul>
+      </div>
+  </aside>
+  <section class="grid-productos" id="gridProductos">    
+    <div class="card" data-precio="169">
+      <img src="../Images/cmnueve.png" alt="Chainsaw Man N°9" class="card-img-top">
+      <div class="card-body">
+        <h5 class="card-title">Chainsaw Man N°9</h5>
+        <p class="card-text">
+          De regreso después de la batalla en el infierno, Power tiene un gran trauma y fobia a la oscuridad...
+        </p>
+        <p class="card-text">
+          MX$169.00
+        </p>
+        <a href="chainswnueve.html" class="btn btn-primary">Ver más</a>
+      </div>
+    </div>
+    <!--Tarjeta 2-->
+    <div class="card" data-precio="169">
+      <img src="../Images/cmdoce.png" alt="Chainsaw Man N°12" class="card-img-top">
+      <div class="card-body">
+        <h5 class="card-title">Chainsaw Man N°12</h5>
+        <p class="card-text">
+          Asa Mitaka, una chica de preparatoria que no encaja en la escuela, odia a los demonios porque sus padres...
+        </p>
+        <p class="card-text">
+          MX$169.00
+        </p>
+        <a href="chainswdoce.html" class="btn btn-primary">Ver más</a>
+      </div>
+    </div>
+    <!--Tarjeta 3-->
+    <div class="card" data-precio="169">
+      <img src="../Images/cmunos.png" alt="Chainsaw Man N°16" class="card-img-top">
+      <div class="card-body">
+        <h5 class="card-title">Chainsaw Man N°16</h5>
+        <p class="card-text">
+          ¿Seguir con su vida normal? ¿O seguir como Chainsaw Man? El corazón de Denji no puede tomar una decisión...
+        </p>
+        <p class="card-text">
+          MX$169.00
+        </p>
+        <a href="chainswdiesiceis.html" class="btn btn-primary">Ver más</a>
+      </div>
+    </div>
+    <!--Targeta 4-->
+    <div class="card" data-precio="429">
+      <img src="../Images/dni.png" alt="Death Note Black Edition N°1" class="card-img-top">
+      <div class="card-body">
+        <h5 class="card-title">Death Note Black Edition N°1</h5>
+        <p class="card-text">
+          Ryuk, un Shinigami (dios de la muerte), abandona una librería dotada de enorme poder en el mundo...
+        </p>
+        <p class="card-text">
+          MX$429.00
+        </p>
+        <a href="deathntbeuno.html" class="btn btn-primary">Ver más</a>
+      </div>
+    </div>
+    <!--Tarjeta 5-->
+    <div class="card" data-precio="429">
+      <img src="../Images/deathniii.png" alt="Death Note Black Edition N°3" class="card-img-top">
+      <div class="card-body">
+        <h5 class="card-title">Death Note Black Edition N°3</h5>
+        <p class="card-text">
+          Las cosas se están saliendo de control para Light. L captura a Misa y la encierra porque es sospechosa...
+        </p>
+        <p class="card-text">
+          MX$429.00
+        </p>
+        <a href="deathntbetres.html" class="btn btn-primary">Ver más</a>
+      </div>
+    </div>
+    <!--Tarjeta 6-->
+    <div class="card" data-precio="429">
+      <img src="../Images/deathnv.png" alt="Death Note Black Edition N°5" class="card-img-top">
+      <div class="card-body">
+        <h5 class="card-title">Death Note Black Edition N°5</h5>
+        <p class="card-text">
+          Near y Mello, sucesores reales de L, le complican las cosas a Light. Near siembra dudas dentro del equipo...
+        </p>
+        <p class="card-text">
+          MX$429.00
+        </p>
+        <a href="deathntbecinco.html" class="btn btn-primary">Ver más</a>
+      </div>
+    </div>
+    <!--Targeta 7-->
+    <div class="card" data-precio="179">
+      <img src="../Images/knydoce.png" alt="Demon Slayer N°12" class="card-img-top">
+      <div class="card-body">
+        <h5 class="card-title">Demon Slayer N°12</h5>
+        <p class="card-text">
+          Muzan convoca a las Lunas Crecientes y les ordena que acaben de una vez con la Compañía Cazademonios...
+        </p>
+        <p class="card-text">
+          MX$179.00
+        </p>
+        <a href="knydoce.html" class="btn btn-primary">Ver más</a>
+      </div>
+    </div>
+    <!--Tarjeta 8-->
+    <div class="card" data-precio="179">
+      <img src="../Images/knytrece.png" alt="Demon Slayer N°13" class="card-img-top">
+      <div class="card-body">
+        <h5 class="card-title">Demon Slayer N°13</h5>
+        <p class="card-text">
+          La aldea de los forjadores de espadas nichirin es atacada por las Crecientes Cuatro y Cinco. Tanjiro...
+        </p>
+        <p class="card-text">
+          MX$179.00
+        </p>
+        <a href="knytrece.html" class="btn btn-primary">Ver más</a>
+      </div>
+    </div>
+    <!--Tarjeta 9-->
+    <div class="card" data-precio="179">
+      <img src="../Images/knygdv.png" alt="Demon Slayer - La Guía del Viento #1-Novela" class="card-img-top">
+      <div class="card-body">
+        <h5 class="card-title">Demon Slayer - La Guía del Viento</h5>
+        <p class="card-text">
+          Sanemi terminó en la Compañía Cazademonios gracias a un encuentro inesperado que tuvo en su juventud...
+        </p>
+        <p class="card-text">
+          MX$179.00
+        </p>
+        <a href="knylaguiadelviento.html" class="btn btn-primary">Ver más</a>
+      </div>
+    </div>
+    <!--Targeta 10-->
+    <div class="card" data-precio="359">
+      <img src="../Images/haikyudos.png" alt="Haikyu!! (3 en 1) N°2" class="card-img-top">
+      <div class="card-body">
+        <h5 class="card-title">Haikyu!! (3 en 1) N°2</h5>
+        <p class="card-text">
+          ¡El momento que tanto esperaron ha llegado! Karasuno, después de un arduo entrenamiento, se enfrenta a su...
+        </p>
+         <p class="card-text">
+          MX$359.00
+        </p>
+        <a href="haikyudos.html" class="btn btn-primary">Ver más</a>
+      </div>
+    </div>
+    <!--Tarjeta 11-->
+    <div class="card" data-precio="359">
+      <img src="../Images/haikyudiez.png" alt="Haikyu!! (3 en 1) N°10" class="card-img-top">
+      <div class="card-body">
+        <h5 class="card-title">Haikyu!! (3 en 1) N°10</h5>
+        <p class="card-text">
+          ¡Karasuno gana su primer partido en el Torneo de Primavera! Y con esto pueden empezar a preparar las...
+        </p>
+         <p class="card-text">
+          MX$359.00
+        </p>
+        <a href="haikyudiez.html" class="btn btn-primary">Ver más</a>
+      </div>
+    </div>
+    <!--Tarjeta 12-->
+    <div class="card" data-precio="359">
+      <img src="../Images/haikyuq.png" alt="Haikyu!! (3 en 1) N°15" class="card-img-top">
+      <div class="card-body">
+        <h5 class="card-title">Haikyu!! (3 en 1) N°15</h5>
+        <p class="card-text">
+          La historia sigue en el punto culminante del enfrentamiento entre el equipo de Karasuno y el poderoso...
+        </p>
+         <p class="card-text">
+          MX$359.00
+        </p>
+        <a href="haikyuquince.html" class="btn btn-primary">Ver más</a>
+      </div>
+    </div>
+    <!--Targeta 13-->
+    <div class="card" data-precio="179">
+      <img src="../Images/jshknueve.png" alt="Jibaku Shounen Hanako-Kun N°9" class="card-img-top">
+      <div class="card-body">
+        <h5 class="card-title">Jibaku Shounen Hanako-Kun N°9</h5>
+        <p class="card-text">
+          Aquel día, Nene llegó a la escuela como siempre y encontró a Hanako-Kun viviendo como un compañero....
+        </p>
+         <p class="card-text">
+          MX$179.00
+        </p>
+        <a href="jshknueve.html" class="btn btn-primary">Ver más</a>
+      </div>
+    </div>
+    <!--Tarjeta 14-->
+    <div class="card" data-precio="179">
+      <img src="../Images/jshkdiez.png" alt="Jibaku Shounen Hanako-Kun N°10" class="card-img-top">
+      <div class="card-body">
+        <h5 class="card-title">Jibaku Shounen Hanako-Kun N°10</h5>
+        <p class="card-text">
+          Tienen que matar a Amane Yugi y a Sousuke Mitsuba para poder volver al mundo real. ¡Nene le propone un...
+        </p>
+         <p class="card-text">
+          MX$179.00
+        </p>
+        <a href="jshkdiez.html" class="btn btn-primary">Ver más</a>
+      </div>
+    </div>
+    <!--Tarjeta 15-->
+    <div class="card" data-precio="179">
+      <img src="../Images/jshkdosc.png" alt="Jibaku Shounen Hanako-Kun N°20" class="card-img-top">
+      <div class="card-body">
+        <h5 class="card-title">Jibaku Shounen Hanako-Kun N°20</h5>
+        <p class="card-text">
+           Después de solucionar el lío creado por el Sexto Misterio, Kou y los demás vuelven a la normalidad...
+        </p>
+         <p class="card-text">
+          MX$179.00
+        </p>
+        <a href="jshkveinte.html" class="btn btn-primary">Ver más</a>
+      </div>
+    </div>
+    <!--Targeta 16-->
+    <div class="card" data-precio="169">
+      <img src="../Images/jjkcero.png" alt="Jujutsu Kaisen 0" class="card-img-top">
+      <div class="card-body">
+        <h5 class="card-title">Jujutsu Kaisen 0</h5>
+        <p class="card-text">
+          Yuta Okkotsu, un estudiante de preparatoria, sufre la obsesión de Rika Orimoto, su amiga de la infancia...
+        </p>
+        <p class="card-text">
+          MX$169.00
+        </p>
+        <a href="jjkcero.html" class="btn btn-primary">Ver más</a>
+      </div>
+    </div>
+    <!--Tarjeta 17-->
+    <div class="card" data-precio="169">
+      <img src="../Images/jjktres.png" alt="Jujutsu Kaisen N°3" class="card-img-top">
+      <div class="card-body">
+        <h5 class="card-title">Jujutsu Kaisen N°3</h5>
+        <p class="card-text">
+          Fushiguro y Nobara tienen un enfrentamiento con los del plantel de Kioto, pero estos se retiran cuando...
+        </p>
+        <p class="card-text">
+          MX$169.00
+        </p>
+        <a href="jjktres.html" class="btn btn-primary">Ver más</a>
+      </div>
+    </div>
+    <!--Tarjeta 18-->
+    <div class="card" data-precio="169">
+      <img src="../Images/jjkdoso.png" alt="Jujutsu kaisen N°28" class="card-img-top">
+      <div class="card-body">
+        <h5 class="card-title">Jujutsu Kaisen N°28</h5>
+        <p class="card-text">
+          ¡Higuruma no logra confiscarle su técnica ritual a Sukuna! ¡Termina separado de ltadori y se enfrenta al...
+        </p>
+        <p class="card-text">
+          MX$169.00
+        </p>
+        <a href="jjkveintiocho.html" class="btn btn-primary">Ver más</a>
+      </div>
+    </div>
+  <!--Targeta 19-->
+    <div class="card" data-precio="159">
+      <img src="../Images/mhadosn.png" alt="My Hero Academia N°29" class="card-img-top">
+      <div class="card-body">
+        <h5 class="card-title">My Hero Academia N°29</h5>
+        <p class="card-text">
+          Tomura Shigaraki finalmente ha despertado y comienza a desatar sus salvajes poderes. Mientras el héroe...
+        </p>
+        <p class="card-text">
+          MX$159.00
+        </p>
+        <a href="mhaveintinueve.html" class="btn btn-primary">Ver más</a>
+      </div>
+    </div>
+    <!--Tarjeta 20-->
+    <div class="card" data-precio="159">
+      <img src="../Images/mhatresc.png" alt="My Hero Academia N°30" class="card-img-top">
+      <div class="card-body">
+        <h5 class="card-title">My Hero Academia N°30</h5>
+        <p class="card-text">
+          El odio que corroe el corazón de Dabi por su oscuro pasado está a punto de estallar en la  batalla...
+        </p>
+        <p class="card-text">
+          MX$159.00
+        </p>
+        <a href="mhatreinta.html" class="btn btn-primary">Ver más</a>
+      </div>
+    </div>
+    <!--Tarjeta 21-->
+    <div class="card" data-precio="209">
+      <img src="../Images/mhanov.png" alt="My Hero Academia Archivos Escolares N°1" class="card-img-top">
+      <div class="card-body">
+        <h5 class="card-title">My Hero Academia Archivos Escolares N°1</h5>
+        <p class="card-text">
+          Aprender todo lo necesario para convertirse en un héroe. Eso es lo que significa formar parte del Curso...
+        </p>
+        <p class="card-text">
+          MX$209.00
+        </p>
+        <a href="mhanovuno.html" class="btn btn-primary">Ver más</a>
+      </div>
+    </div>
+    <!--Targeta 22-->
+    <div class="card" data-precio="289">
+      <img src="../Images/ranmauno.png" alt="Ranma 1/2 Wideban Edition N°1" class="card-img-top">
+      <div class="card-body">
+        <h5 class="card-title">Ranma 1/2 Wideban Edition N°1</h5>
+        <p class="card-text">
+          Con un tamaño más grande y con información extra, la historia de Ranma y Akane llega para todos los fans...
+        </p>
+        <p class="card-text">
+          MX$289.00
+        </p>
+        <a href="ranmauno.html" class="btn btn-primary">Ver más</a>
+      </div>
+    </div>
+    <!--Tarjeta 23-->
+    <div class="card" data-precio="289">
+      <img src="../Images/ranmados.png" alt="Ranma 1/2 Wideban Edition N°2" class="card-img-top">
+      <div class="card-body">
+        <h5 class="card-title">Ranma 1/2 Wideban Edition N°2</h5>
+        <p class="card-text">
+          Ranma y Akane continúan adaptándose a su compromiso forzado mientras los enredos crecen con la llegada...
+        </p>
+        <p class="card-text">
+          MX$289.00
+        </p>
+        <a href="ranmados.html" class="btn btn-primary">Ver más</a>
+      </div>
+    </div>
+    <!--Tarjeta 24-->
+    <div class="card" data-precio="289">
+      <img src="../Images/ranmacinco.png" alt="Ranma 1/2 Wideban Edition N°5" class="card-img-top">
+      <div class="card-body">
+        <h5 class="card-title">Ranma 1/2 Wideban Edition N°5</h5>
+        <p class="card-text">
+          La vida cotidiana de Kadode y Ouran continúa desarrollándose bajo la constante amenaza de la nave...
+        </p>
+        <p class="card-text">
+          MX$289.00
+        </p>
+        <a href="ranmacinco.html" class="btn btn-primary">Ver más</a>
+      </div>
+    </div>
+    <!--Targeta 25-->
+    <div class="card" data-precio="179">
+      <img src="../Images/sxfdos.png" alt="Spy x Family N°2" class="card-img-top">
+      <div class="card-body">
+        <h5 class="card-title">Spy x Family N°2</h5>
+        <p class="card-text">
+          ¡Anya fue admitida en la prestigiosa Academia Eden y es hora de poner en marcha la siguiente fase de la...
+        </p>
+        <p class="card-text">
+          MX$179.00
+        </p>
+        <a href="sxfdos.html" class="btn btn-primary">Ver más</a>
+      </div>
+    </div>
+    <!--Tarjeta 26-->
+    <div class="card" data-precio="179">
+      <img src="../Images/sxftres.png" alt="Spy x Family N°3" class="card-img-top">
+      <div class="card-body">
+        <h5 class="card-title">Spy x Family N°3</h5>
+        <p class="card-text">
+          Más allá de los extraños sentimientos de Yuri y sus sospechas acerca del que él considera un vil ladrón...
+        </p>
+        <p class="card-text">
+          MX$179.00
+        </p>
+        <a href="sxftres.html" class="btn btn-primary">Ver más</a>
+      </div>
+    </div>
+    <!--Tarjeta 27-->
+    <div class="card" data-precio="179">
+      <img src="../Images/sxfcinco.png" alt="Spy x Family N°5" class="card-img-top">
+      <div class="card-body">
+        <h5 class="card-title">Spy x Family N°5</h5>
+        <p class="card-text">
+          Es indispensable que Anya mejore en sus estudios y apruebe los exámenes que están porvenir, pero la...
+        </p>
+        <p class="card-text">
+          MX$179.00
+        </p>
+        <a href="sxfcinco.html" class="btn btn-primary">Ver más</a>
+      </div>
+    </div>
+    <!--Tarjeta 28-->
+    <div class="card" data-precio="169">
+      <img src="../Images/tpnsiete.png" alt="The Promised Neverland N°7" class="card-img-top">
+      <div class="card-body">
+        <h5 class="card-title">The Promised Neverland N°7</h5>
+        <p class="card-text">
+          Un hombre misterioso esperaba a los niños en el refugio subterráneo del punto B06-32...      
+        </p>
+        <p class="card-text">
+          MX$169.00
+        </p>
+        <a href="tpnsiete.html" class="btn btn-primary">Ver más</a>
+      </div>
+    </div>
+    <!--Tarjeta 29-->
+    <div class="card" data-precio="169">
+      <img src="../Images/tpndieciocho.png" alt="The Promised Neverland N°18" class="card-img-top">
+      <div class="card-body">
+        <h5 class="card-title">The Promised Neverland N°18</h5>
+        <p class="card-text">
+          Emma y Ray se reúnen con Norman en el interior del castillo de la familia real. Con la paz o el exterminio...
+        </p>
+        <p class="card-text">
+          MX$169.00
+        </p>
+        <a href="tpndieciocho.html" class="btn btn-primary">Ver más</a>
+      </div>
+    </div>
+    <!--Tarjeta 30-->
+    <div class="card" data-precio="169">
+      <img src="../Images/tpndiecinueve.png" alt="The Promised Neverland N°19" class="card-img-top">
+      <div class="card-body">
+        <h5 class="card-title">The Promised Neverland N°19</h5>
+        <p class="card-text">
+          Emma, Ray y Norman logran vencer la batalla en la Capital Imperial y derrocar tanto a la monarquía...
+        </p>
+        <p class="card-text">
+          MX$169.00
+        </p>
+        <a href="tpndiecinueve.html" class="btn btn-primary">Ver más</a>
+      </div>
+    </div>
+    <!--Tarjeta 31-->
+        <div class="card" data-precio="58">
+      <img src="../Images/peluchesatoru.png" alt="Peluche de Satoru Gojo" class="card-img-top">
+      <div class="card-body">
+        <h5 class="card-title">Peluche de Satoru Gojo</h5>
+        <p class="card-text">
+          Colección: <strong>Jujutsu Kaisen Peluches</strong>
+        </p>
+        <p class="card-text">
+          MX$58.00
+        </p>
+        <a href="peluchejjksatoru.html" class="btn btn-primary">Ver más</a>
+      </div>
+    </div>
+    <!--Tarjeta 32-->
+    <div class="card" data-precio="58">
+      <img src="../Images/peluchegeto.jpg" alt="Peluche de Suguru Geto" class="card-img-top">
+      <div class="card-body">
+        <h5 class="card-title">Peluche de Suguru Geto</h5>
+        <p class="card-text">
+          Colección: <strong>Jujutsu Kaisen Peluches</strong>        
+        </p>
+        <p class="card-text">
+          MX$58.00
+        </p>
+        <a href="peluchejjksuguru.html" class="btn btn-primary">Ver más</a>
+      </div>
+    </div>
+    <!--Tarjeta 33-->
+    <div class="card" data-precio="58">
+      <img src="../Images/peluchegiyuu.png" alt="Peluche de Giyuu Tomioka" class="card-img-top">
+      <div class="card-body">
+        <h5 class="card-title">Peluche de Giyuu Tomioka</h5>
+        <p class="card-text">
+          Colección: <strong>Demon Slayer Peluches</strong>
+        </p>
+        <p class="card-text">
+          MX$58.00
+        </p>
+        <a href="pelucheknygiyuu.html" class="btn btn-primary">Ver más</a>
+      </div>
+    </div>
+    <!--Targeta 34-->
+    <div class="card" data-precio="58">
+      <img src="../Images/pelucheinosuke.png" alt="Peluche de Inosuke Hashibira" class="card-img-top">
+      <div class="card-body">
+        <h5 class="card-title">Peluche de Inosuke Hashibira</h5>
+        <p class="card-text">
+          Colección: <strong>Demon Slayer Peluches</strong>
+        </p>
+         <p class="card-text">
+          MX$58.00
+        </p>
+        <a href="pelucheknyinosuke.html" class="btn btn-primary">Ver más</a>
+      </div>
+    </div>
+    <!--Targeta35-->
+    <div class="card" data-precio="348">
+      <img src="../Images/tazadeathnt.jpg" alt="Taza de Death Note" class="card-img-top">
+      <div class="card-body">
+        <h5 class="card-title">Taza de Death Note</h5>
+        <p class="card-text">
+          Colección: <strong>Death Note Tazas</strong>
+        </p>
+        <p class="card-text">
+          MX$348.00
+        </p>
+        <a href="tazadeathnt.html" class="btn btn-primary">Ver más</a>
+      </div>
+    </div>
+    <!--Tarjeta 36-->
+    <div class="card" data-precio="348">
+      <img src="../Images/tazakny.jpg" alt="Taza de Demon Slayer" class="card-img-top">
+      <div class="card-body">
+        <h5 class="card-title">Taza de Demon Slayer</h5>
+        <p class="card-text">
+          Colección: <strong>Demon Slayer Tazas</strong>        
+        </p>
+        <p class="card-text">
+          MX$348.00
+        </p>
+        <a href="tazademonslayer.html" class="btn btn-primary">Ver más</a>
+      </div>
+    </div>
+    <!--Tarjeta 37-->
+    <div class="card" data-precio="348">
+      <img src="../Images/tazamha.jpg" alt="Taza de My Hero Academia" class="card-img-top">
+      <div class="card-body">
+        <h5 class="card-title">Taza de My Hero Academia</h5>
+        <p class="card-text">
+          Colección: <strong>My Hero Academia Tazas</strong>
+        </p>
+        <p class="card-text">
+          MX$348.00
+        </p>
+        <a href="tazamha.html" class="btn btn-primary">Ver más</a>
+      </div>
+    </div>
+  </section>
+</div>
+</div>
+</div>
+<script src="js/jquery.js"></script>
+<script src="js/bootstrap.min.js"></script>
+</body>
+</html>

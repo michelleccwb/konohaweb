@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="author" content="Méndez Franco Gabriela Maribel">
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <title>Productos</title>
+  <link rel="icon" type="image/x-icon" href="../Images/Sharingan.png">
+  <link rel="stylesheet" type="text/css" href="../CSS/mis-estilos.css">
+  <link rel="stylesheet" type="text/css" href="../CSS/productos.css">
+</head>
+<body>
+<header>
+  <!--Menú-->
+  <a href="../Index.html"><img src="../Images/logo.png" alt="Logo Konoha"></a>
+  <nav>
+    <a href="Productos.html" class="Under">Productos</a>
+    <a href="Misión.html">Misión</a>
+    <a href="Visión.html">Visión</a>
+    <a href="Contacto.html">Contacto</a>  
+  </nav>
+</header>
+<div class="container col-12 col-md-10 col-lg-8">
+<div class="carrusel">
+  <div class="Anuncios">
+    <!-- Anuncio 1 -->
+    <a href="jshkveinte.html">
+    <img src="../Images/JSHK20.png" class="anuncio" alt="Jibaku Shounen Hanako-Kun #20">
+    </a>
+    <!-- Anuncio 2 -->
+    <a href="haikyudos.html">
+    <img src="../Images/Haikyuu2.png" class="anuncio" alt="Haikyu!! (3 en 1) #2">
+    </a>
+    <!-- Anuncio 3 -->
+    <a href="ranmauno.html">
+    <img src="../Images/Ranma1.png" class="anuncio" alt="Ranma 1">
+    </a>
+  </div>
+  <button class="prev" onclick="cambiar(-1)">❮</button>
+  <button class="next" onclick="cambiar(1)">❯</button>
+</div>
+</div>
+<script>
+let indice = 0;
+mostraranuncio(indice);
+
+function cambiar(n){
+  mostraranuncio(indice += n);
+}
+
+function mostraranuncio(n){
+  const imagenes = document.getElementsByClassName("anuncio");
+  const textos   = document.getElementsByClassName("text");
+
+  if(n >= imagenes.length){ indice = 0; }
+  if(n < 0){ indice = imagenes.length - 1; }
+
+  for(let i = 0; i < imagenes.length; i++){
+    imagenes[i].style.display = "none";
+  }
+  for(let j = 0; j < textos.length; j++){
+    textos[j].style.display = "none";
+  }
+
+  imagenes[indice].style.display = "block";
+  textos[indice].style.display   = "flex"; 
+}
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+  const buscador = document.getElementById("buscador");
+  const productos = document.querySelectorAll(".card");
+
+  buscador.addEventListener("keyup", function(){
+  let texto = buscador.value.toLowerCase();
+
+  productos.forEach(producto => {
+  let nombre = producto.textContent.toLowerCase();
+
+  if(nombre.includes(texto)){
+ producto.style.display = "";
+  } else {
+    producto.style.display = "none";
+  }
+        });
+    });
+});
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+
+  document.getElementById("ordenar").addEventListener("change", function(){
+    let opcion = this.value;
+    let contenedor = document.getElementById("gridProductos");
+    let productos = Array.from(contenedor.querySelectorAll(".card"));
+
+    productos.sort((a, b) => {
+      let nombreA = a.querySelector(".card-title").textContent.toLowerCase();
+      let nombreB = b.querySelector(".card-title").textContent.toLowerCase();
+
+      let precioA = parseFloat(a.getAttribute("data-precio")) || 0;
+      let precioB = parseFloat(b.getAttribute("data-precio")) || 0;
+
+      if(opcion === "nombreAsc"){
+        return nombreA.localeCompare(nombreB);
+      }
+      if(opcion === "nombreDesc"){
+        return nombreB.localeCompare(nombreA);
+      }
+      if(opcion === "precioAsc"){
+        return precioA - precioB;
+      }
+      if(opcion === "precioDesc"){
+        return precioB - precioA;
+      }
+    });
+    productos.forEach(p => contenedor.appendChild(p));
+  });
+});
+</script>
+<div>
+  <section class="catalogo" id="catalogo">
+  <div class="barra_catalogo">
+    <div class="barra">
+      <div class="izquierda">
+        <strong><h2 style="color:white;">Catálogo</h2></strong>
+      </div>
+       <div class="bsc">
+            <input type="text" id="buscador" placeholder="Buscar en toda la tienda...">
+        </div>
+        <div class="derecha">
+            <label style="color: white; font-weight: bold;">Ordenar por</label>
+            <select id="ordenar">
+                <option value="nombreAsc">Nombre ascendente</option>
+                <option value="nombreDesc">Nombre descendente</option>
+                <option value="precioAsc">Precio ascendente</option>
+                <option value="precioDesc">Precio descendente</option>
+            </select>
+        </div>
+    </div>
+  </section>
+</div>
+<div class="container mt-4">
+  <div class="row">
+    <aside class="col-12 col-md-4 col-lg-3 mb-4">
+      <div class="ctg">
+        <h3 class="mb-3">Categoría</h3>
+        <ul class="categorias">
+          <li><a href="Pmangas.html">Mangas</a></li>
+          <li><a href="Ppeluches.html">Peluches</a></li>
+          <li><a href="Ptazas.html">Tazas</a></li>
+          <li><a href="Pnovelas.html">Novelas</a></li>
+        </ul>
+      </div>
+  </aside>
+  <section class="grid-productos" id="gridProductos">    
+        <div class="card" data-precio="58">
+      <img src="../Images/peluchesatoru.png" alt="Peluche de Satoru Gojo" class="card-img-top">
+      <div class="card-body">
+        <h5 class="card-title">Peluche de Satoru Gojo</h5>
+        <p class="card-text">
+          Colección: <strong>Jujutsu Kaisen Peluches</strong>
+        </p>
+        <p class="card-text">
+          MX$58.00
+        </p>
+        <a href="peluchejjksatoru.html" class="btn btn-primary">Ver más</a>
+      </div>
+    </div>
+    <!--Tarjeta 32-->
+    <div class="card" data-precio="58">
+      <img src="../Images/peluchegeto.jpg" alt="Peluche de Suguru Geto" class="card-img-top">
+      <div class="card-body">
+        <h5 class="card-title">Peluche de Suguru Geto</h5>
+        <p class="card-text">
+          Colección: <strong>Jujutsu Kaisen Peluches</strong>        
+        </p>
+        <p class="card-text">
+          MX$58.00
+        </p>
+        <a href="peluchejjksuguru.html" class="btn btn-primary">Ver más</a>
+      </div>
+    </div>
+    <!--Tarjeta 33-->
+    <div class="card" data-precio="58">
+      <img src="../Images/peluchegiyuu.png" alt="Peluche de Giyuu Tomioka" class="card-img-top">
+      <div class="card-body">
+        <h5 class="card-title">Peluche de Giyuu Tomioka</h5>
+        <p class="card-text">
+          Colección: <strong>Demon Slayer Peluches</strong>
+        </p>
+        <p class="card-text">
+          MX$58.00
+        </p>
+        <a href="pelucheknygiyuu.html" class="btn btn-primary">Ver más</a>
+      </div>
+    </div>
+    <!--Targeta 34-->
+    <div class="card" data-precio="58">
+      <img src="../Images/pelucheinosuke.png" alt="Peluche de Inosuke Hashibira" class="card-img-top">
+      <div class="card-body">
+        <h5 class="card-title">Peluche de Inosuke Hashibira</h5>
+        <p class="card-text">
+          Colección: <strong>Demon Slayer Peluches</strong>
+        </p>
+         <p class="card-text">
+          MX$58.00
+        </p>
+        <a href="pelucheknyinosuke.html" class="btn btn-primary">Ver más</a>
+      </div>
+    </div>
+  </section>
+</div>
+</div>
+</div>
+<script src="js/jquery.js"></script>
+<script src="js/bootstrap.min.js"></script>
+</body>
+</html>
