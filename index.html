@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<meta name="author" content="Cohuo Chunab Michelle Guadalupe, Méndez Gabriela, Pérez América, Rivadeneyra Estephania, Tzab Camila">
+	<title>Konoha - Tienda Anime</title>
+	<link rel="icon" type="image/x-icon" href="Images/Sharingan.png">
+	<link rel="stylesheet" type="text/css" href="CSS/mis-estilos.css">
+</head>
+<body>
+
+    <header>
+    <a href="Index.html"><img src="Images/logo.png" alt="Logo Konoha"></a>
+    <nav>
+        <a href="Páginas/Productos.html">Productos</a>
+        <a href="Páginas/Misión.html">Misión</a>
+        <a href="Páginas/Visión.html">Visión</a>
+        <a href="Páginas/Contacto.html">Contacto</a>
+    </nav>
+</header>
+<div class="hero" id="hero">
+    <div class="overlay"></div>
+
+    <!-- Flechas -->
+    
+    <div class="arrow left" onclick="anterior()">❮</div>
+    
+    <div class="arrow right" onclick="siguiente()">❯</div>
+
+    <div class="container-fluid">
+        <div class="row">
+    <div class="hero-content">
+        <h1>Bienvenido a Konoha</h1>
+        <p>Distribuidores de la editorial Panini y algunas otras editoriales. Vendemos productos de anime, como: calcomanías de varias series, peluches de series y videojuegos, sombreros con diseños de anime, tazas y posters de anime, figuras, mangas y pines.</p>
+        <a href="Páginas/explorartienda.html" class="btn">Explorar tienda</a>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+<script>
+const hero = document.getElementById("hero");
+
+const Images = [
+    "Images/uno.jpg",
+    "Images/dos.jpg",
+    "Images/tres.jpg"
+];
+
+let index = 0;
+let intervalo;
+
+function mostrarImagen(){
+    hero.style.backgroundImage = `url(${Images[index]})`;
+}
+
+function siguiente(){
+    index = (index + 1) % Images.length;
+    mostrarImagen();
+    reiniciarAuto();
+}
+
+function anterior(){
+    index = (index - 1 + Images.length) % Images.length;
+    mostrarImagen();
+    reiniciarAuto();
+}
+
+function autoSlide(){
+    index = (index + 1) % Images.length;
+    mostrarImagen();
+}
+
+function reiniciarAuto(){
+    clearInterval(intervalo);
+    intervalo = setInterval(autoSlide, 5000);
+}
+
+mostrarImagen();
+intervalo = setInterval(autoSlide, 5000);
+</script>
+<script src="js/jquery.js"></script>
+<script src="js/bootstrap.min.js"></script>
+</body>
+</html>
